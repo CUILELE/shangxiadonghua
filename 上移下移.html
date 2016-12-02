@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			ul{
+				position: relative;	
+			}
+			li{
+				position: absolute;
+				padding: 5px;
+				transition: 1s;
+			}
+		</style>
+	</head>
+	<script type="text/javascript">
+		window.onload = function (){
+			var ul = document.getElementsByTagName('ul')[0];
+			var inputs = document.getElementsByTagName('input');
+			var lis = document.getElementsByTagName('li');
+			var arr = [];
+			var height = lis[0].offsetHeight;
+			for(var i=0;i<lis.length;i++){
+				lis[i].style.top = i*32+'px';
+			}
+			var arr = [];
+			for(var i=0;i<lis.length;i++){
+				lis[i].index = i;
+				arr[i] = {
+					top:lis[i].offsetTop
+				}
+			}
+			for(var i=0;i<inputs.length;i++){
+				inputs[i].onclick = function (){
+					var parent = this.parentNode;
+					if(this.className == 'b'){
+						parent.style.top = arr[parent.nextElementSibling.index].top + 'px';
+						parent.nextElementSibling.style.top = arr[parent.index].top + 'px';
+						var one = parent.index;
+						parent.index = parent.nextElementSibling.index;
+						parent.nextElementSibling.index = one;
+						
+						setTimeout(function (){
+							ul.insertBefore(parent.nextElementSibling,parent);
+						},500)
+					}else if(this.className == 'a'){
+						var prev = this.parentNode.previousElementSibling;
+						var next = this.parentNode.nextElementSibling;
+						if(prev){
+							parent.style.top = arr[prev.index].top + 'px';
+							prev.style.top = arr[parent.index].top + 'px';
+							var two = parent.index;
+								parent.index = prev.index;
+								prev.index = two;
+								setTimeout(function (){
+								ul.insertBefore(parent,prev);
+							},1000)
+						}
+					}
+				}
+			}
+			
+			
+			
+			
+			
+			
+			
+			
+//			for(var i=0;i<inputs.length;i++){
+//				inputs[i].onclick = function (){
+//					var parent = this.parentNode;
+//					if(this.className == 'a'){
+//						ul.insertBefore(parent,parent.previousElementSibling)
+//					}else if(this.className == 'b'){
+//						var next = parent.nextElementSibling;
+//						if(next){
+//							ul.insertBefore(parent.nextElementSibling,parent)
+//						}else{
+//							ul.insertBefore(parent,parent.parentNode.firstElementChild)
+//						}
+//					}
+//				}
+//			}
+		}
+	</script>
+	<body>
+		<ul>
+			<li>111111111
+				<input type="button" name="" id="" value="上移"  class="a"/>
+				<input type="button" name="" id="" value="下移"  class="b"/>
+			</li>
+			<li>222222222
+				<input type="button" name="" id="" value="上移"  class="a"/>
+				<input type="button" name="" id="" value="下移"  class="b"/>
+			</li>
+			<li>333333333
+				<input type="button" name="" id="" value="上移"  class="a"/>
+				<input type="button" name="" id="" value="下移"  class="b"/>
+			</li>
+			<li>444444444
+				<input type="button" name="" id="" value="上移"  class="a"/>
+				<input type="button" name="" id="" value="下移"  class="b"/>
+			</li>
+			<li>555555555
+				<input type="button" name="" id="" value="上移"  class="a"/>
+				<input type="button" name="" id="" value="下移"  class="b"/>
+			</li>
+		</ul>
+	</body>
+</html>
